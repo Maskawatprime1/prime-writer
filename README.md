@@ -21,7 +21,7 @@ Prime Writer is © 2026 Maskawat Al Sium and released under the **[PolyForm Nonc
 
 - ✅ You may use it, study it and change it for personal, educational and other non-commercial purposes.
 - ❌ You may not sell it or use it commercially without written permission.
-- 📌 Any copy must keep the `Required Notice` (the author's copyright line) and the license.
+-  Any copy must keep the `Required Notice` (the author's copyright line) and the license.
 
 Prime Writer builds on open-source software that keeps its own licenses. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
