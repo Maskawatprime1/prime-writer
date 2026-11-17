@@ -7,182 +7,116 @@
 
 # Prime Writer
 
-**An offline grammar checker, rewriter and paraphraser for Windows that works in every app.** Prime Writer underlines mistakes as you type in Chrome, Word, Notepad, chat apps and more, and rewrites text in 8 styles. Everything runs on your own PC: LanguageTool handles grammar rules and a local AI model (Qwen3 via Ollama) handles suggestions and rewrites. No account, no cloud, and your text never leaves your computer.
+Prime Writer is a grammar checker and paraphraser for Windows that runs entirely on your own computer. It underlines mistakes while you type in most apps (Word, Notepad, web browsers and others), and it can rewrite text in eight different styles.
 
-Created by **Maskawat Al Sium**. © 2026. Free for personal and non-commercial use ([license](#license)).
+Grammar and spelling rules come from LanguageTool. The suggestions and rewrites come from a local AI model (Qwen3, run through Ollama). You don't need an account, and your text never leaves your PC.
+
+I built it because I wanted something like Grammarly and QuillBot that works offline. It's free to use, but not for selling. See the license section below.
 
 ## Download
 
-Get **PrimeWriter-Setup-<version>.exe** from this repository's **Releases** page and run it. On first launch Prime Writer helps you install Ollama and download the AI model.
+Download `PrimeWriter-Setup-1.0.0.exe` from the [latest release](https://github.com/Maskawatprime1/prime-writer/releases/latest) and run it.
 
-## License
+The installer isn't code-signed yet, so Windows may show "Windows protected your PC". Click More info, then Run anyway.
 
-Prime Writer is © 2026 Maskawat Al Sium and released under the **[PolyForm Noncommercial License 1.0.0](LICENSE)**.
+The first time you open Prime Writer, it asks to install Ollama (about 1 GB) and download an AI model. You can pick Qwen3 8B (5.2 GB, better results) or Qwen3 4B (2.5 GB, for slower PCs). Grammar and spelling checks work before the AI is set up.
 
-- ✅ You may use it, study it and change it for personal, educational and other non-commercial purposes.
-- ❌ You may not sell it or use it commercially without written permission.
--  Any copy must keep the `Required Notice` (the author's copyright line) and the license.
+### What you need
 
-Prime Writer builds on open-source software that keeps its own licenses. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+- Windows 10 (version 1809 or later) or Windows 11, 64-bit
+- 16 GB of RAM, or 8 GB if you use the 4B model
+- About 9 GB of free disk space
+- An NVIDIA GPU makes the AI much faster, but it also runs on the CPU
 
-## Install on another Windows PC
+The installer doesn't need admin rights. It includes LanguageTool and its own Java runtime, so there's nothing else to install by hand. If Microsoft WebView2 is missing, it installs that too.
 
-Copy **`PrimeWriter-Setup-<version>.exe`** (about 300 MB; you'll find it in the Releases page, or in `dist\installer` after a build) to the other PC and run it.
+To uninstall, go to Settings → Apps → Prime Writer. Your settings in `%LOCALAPPDATA%\PrimeWriter` stay on the PC. Ollama is a separate program, so uninstall it on its own if you don't need it anymore.
 
-- **What it installs:** for the current user only, no admin needed: the app, LanguageTool and its own Java. There's nothing else to install by hand. Options: a desktop shortcut and "Start when I sign in". It installs Microsoft WebView2 if it's missing.
-- **First launch:** a setup screen offers **Install Ollama** (about 1 GB) and **Download the AI model**, either Qwen3 8B (5.2 GB, best) or Qwen3 4B (2.5 GB, for weaker PCs), each with a progress bar. If Ollama and a model are already there, it skips straight to the editor. Grammar and spelling checks work even before the AI is set up.
-- **Requirements:** Windows 10 (1809+) or 11, 64-bit. 16 GB RAM recommended (8 GB with the 4B model). About 9 GB free disk space. An NVIDIA GPU makes the AI fast; without one it runs on the CPU, slower.
-- **"Windows protected your PC":** the installer isn't code-signed, so Windows SmartScreen may warn. Click **More info → Run anyway**.
-- **Uninstall:** Settings → Apps → Prime Writer. Your settings in `%LOCALAPPDATA%\PrimeWriter` are kept. Ollama and the model are separate; uninstall Ollama on its own if you want.
+There's no Mac or Android version. The parts that work inside other apps rely on Windows features.
 
-Rebuild the installer: `powershell -ExecutionPolicy Bypass -File build_installer.ps1 -Version 1.0.1` (needs Inno Setup 6: `winget install JRSoftware.InnoSetup`).
+## What it does
 
-Mac (.dmg) and Android (.apk) aren't available. The parts that work in every app use Windows-only features.
+### In other apps
 
-## The editor
+Type in a text box and mistakes get underlined: red for spelling, orange for grammar, blue for style. LanguageTool results show up within about a second, and the AI adds its own suggestions after you stop typing for a moment.
 
-Open it from the tray with "Open Writer", or from the **Prime Writer** desktop shortcut.
+Hover over an underlined word to see the fixes. Clicking one replaces the word right where it is. Each text box also gets a small round button in its corner that shows how many issues it found. Click it to check or paraphrase the whole text box at once.
 
-- **Toolbar** (Docs-style): undo/redo, text styles, bold, italic, underline, strike, highlight, lists, quote, alignment. On the right: serif/sans font, readability highlights, AI suggestions, Check, and the side panel.
-- **Page:** a clean, centered writing area. Click an underlined mistake to get a card with fixes, **Rewrite sentence**, **Add to dictionary** and **Ignore**. Double-click a correct word to see synonyms.
-- **Select text** to get an AI menu: **Improve**, **Fix**, **Shorten**, **Paraphrase** (any mode), **Synonyms**. Choose **Replace**, **Insert below** or **Try again**.
-- **Side panel:**
-  - *Suggestions:* a writing score, filters (Correctness / Clarity / Style), and **Accept all corrections**.
-  - *Paraphrase:* modes, a how-much-to-change slider, and freeze words.
-  - *Stats:* readability, grade level, reading and speaking time.
-- **Top bar:** document title, AI and LanguageTool status, New / Copy all / Download .txt, a light/dark/system theme, and Settings.
-- **Status bar:** words, characters, reading time, check status and save status. The document is saved automatically.
+You can also select text anywhere and use a hotkey:
 
-## Use it anywhere
+- Ctrl+Alt+G checks the selection
+- Ctrl+Alt+P paraphrases it
 
-Start `dist\PrimeWriter\PrimeWriter.exe` (or use the desktop shortcut). A **P** icon appears in the system tray.
+A small window opens next to your mouse. Press Ctrl+Enter (or click Replace in app) to put the result back, or Esc to close it.
 
-### Live underlines (like Grammarly)
+### The editor
 
-1. Type in any text box: Chrome, Edge, Word, Notepad, Outlook, chat apps…
-2. Mistakes are underlined: red for spelling, orange for grammar, blue for style. LanguageTool results appear within about 1 s. AI suggestions follow after you pause.
-3. Hover over an underlined word to see a card with fixes. Click a fix to replace the word in place.
-4. A round button sits in the text box's corner:
-   - a **number** means that many issues were found
-   - **✓** means no issues
-   - grey means it's still checking
+Prime Writer also has its own editor. Open it from the tray icon or the desktop shortcut. It has:
 
-   Click the button to open the full panel for the whole text box: check, AI fix, or paraphrase in 8 modes. **Replace in app** swaps the text box's contents.
+- a toolbar for headings, bold, italic, lists, quotes and alignment
+- underlined mistakes you can click to fix, ignore, or add to your dictionary
+- an AI menu on selected text: Improve, Fix, Shorten, Paraphrase, Synonyms
+- a side panel with all suggestions and a writing score, a paraphrase tab, and a stats tab with readability, grade level and reading time
+- light and dark themes, and your document is saved automatically
 
-### More writing tools
+### Other features
 
-| Feature | Where | How |
-|---|---|---|
-| Personal dictionary | Any suggestion card, Settings | **Add to dictionary** on a spelling card. Manage the words in Settings. |
-| English variety | Settings → Language | American, British, Canadian or Australian English (checks and rewrites follow it) |
-| Picky mode | Settings → Language | Stricter LanguageTool style and punctuation rules |
-| Word count, reading time, readability score | Writer → Stats tab, popup footer | Flesch score, grade level, sentences, speaking time |
-| Snippets | Settings → Snippets | Type a trigger such as `;addr` followed by a space, Enter or punctuation, in any app or the Writer |
-| Rewrite unclear sentence | Hover card, Writer cards | **Rewrite sentence**, then **Use this** |
-| Synonyms | Any app: select or double-click one word. Writer: double-click a word. | Pick a synonym to replace the word |
-| Readability highlights | Writer (Readability checkbox); other apps: Settings switch, off by default | Purple dotted lines: passive voice, wordy phrases, weak qualifiers, adverbs. Yellow: long sentences. |
-| Paraphrase slider and freeze words | Writer and popup → Paraphrase | **Changes**: Minimal to Max. **Freeze words**: type a word and press Enter to keep it unchanged. |
-
-### Hotkeys (for selected text)
-
-- **Ctrl+Alt+G**: check grammar
-- **Ctrl+Alt+P**: paraphrase
-
-A popup opens next to the mouse. Press **Replace in app** (or **Ctrl+Enter**) to paste the result over your selection. **Esc** closes it.
-
-## On/off controls
-
-- **Tray menu → "On in all apps"**: the master switch. The tray icon turns grey when it's off.
-- **Tray menu → Settings**:
-  - an on/off switch for each app
-  - Start with Windows
-  - changing the hotkeys
-  - the default paraphrase mode
-- **Popup → "Turn off in this app"**: a one-click way to turn it off for the current app.
-
-When it's off for an app, the hotkeys aren't registered while that app is in front, so the keys reach the app normally.
-
-Closing a window hides it to the tray. Use **tray → Quit** to stop the app completely.
-
-## Writer window
-
-Open it from the tray with "Open Writer". It's a full editor with:
-
-- live grammar highlights
-- a suggestions sidebar
-- 8 paraphrase modes (Fix grammar, Standard, Fluent, Formal, Concise, Casual, Academic, Simple) with the changes highlighted
-
-## How it works
-
-- **Copying the selection:** the hotkey sends Ctrl+C to the active app. Your clipboard is restored right away.
-- **Replace:** pastes with Ctrl+V, then restores your clipboard again. Only text on the clipboard is kept; an image on the clipboard is overwritten.
-- **Checking:** LanguageTool results show instantly, and the AI results follow a few seconds later.
-- **Model:** qwen3:8b is the only model installed. It handles checking, rewriting and synonyms, so only one model sits in the 8 GB of VRAM. Rewrites take about 1 s once the model is loaded; the first load takes about 30 s.
-
-### WeChat (and other apps that hide their text boxes)
-
-WeChat 4 (Qt) hides its message box from Windows accessibility, so no app can draw underlines there. Instead, a round **P** button appears on the WeChat window:
-
-1. Type your message and click **P**. Prime Writer copies the message (Ctrl+A, Ctrl+C; your clipboard is restored) and opens the check/paraphrase panel.
-2. **Replace in app** pastes the fixed text back over the message. It never presses Enter, so nothing is sent.
-
-**Drag the button** anywhere and it stays there for that app, even when the window moves or resizes. The live button in other apps can be dragged too. Settings → "Floating button position" → **Reset** puts them back.
-
-You can switch this off in Settings → "Prime Writer button in WeChat". The app list is `button_apps` in the settings file. The hotkeys also work in WeChat on selected text.
+- 8 paraphrase modes: Fix grammar, Standard, Fluent, Formal, Concise, Casual, Academic and Simple, with a slider for how much to change
+- "Freeze words" to keep certain words unchanged when paraphrasing
+- A personal dictionary for names and terms you use often
+- American, British, Canadian or Australian English
+- Snippets: type something like `;addr` and it expands into your saved text
+- Synonyms when you double-click a word
+- Readability highlights for passive voice, wordy phrases and long sentences (off by default in other apps)
+- Turn it off for specific apps, or everywhere, from Settings or the tray menu
 
 ## Limits
 
-- **Where underlines work:** live underlines need the app to support Windows UI Automation text. Chrome, Edge, Electron apps (Discord, Slack, VS Code, Claude), Notepad and Office do. Apps that draw their own text, such as games, some Java apps and terminals, don't. The hotkeys still work there.
-- **What's skipped:** password fields, and anything beyond 6,000 characters.
-- **Grammarly:** if Grammarly is also running, you'll see both sets of underlines. Quit Grammarly or turn it off for that app.
-- **Administrator apps:** Windows blocks typing into apps running as administrator unless PrimeWriter is also run as administrator.
-- Apps that ignore Ctrl+C/Ctrl+V, or games, won't work.
-- Microsoft Store apps may all be listed as `applicationframehost`.
+- Underlines only work in apps that expose their text to Windows accessibility. Chrome, Edge, Office, Notepad and most Electron apps do. Games, terminals and some Java apps don't, but the hotkeys still work there.
+- WeChat hides its message box, so instead of underlines it gets a round P button. Click it to check what you've typed, then Replace. It never presses Enter, so nothing gets sent by accident. You can drag the button wherever you like.
+- If Grammarly is running too, you'll see both sets of underlines. Turn one of them off for that app.
+- It can't type into apps running as administrator unless Prime Writer also runs as administrator.
+- Password fields are always skipped, and so is text longer than 6,000 characters.
+- Copy and paste are used to replace text. Your clipboard is restored afterwards, but only if it held text.
 
-## Settings file
+## License
 
-Settings are saved in `%LOCALAPPDATA%\PrimeWriter\config.json`.
+Prime Writer is © 2026 Maskawat Al Sium, released under the [PolyForm Noncommercial License 1.0.0](LICENSE).
 
-## Developer notes
+You can use it, study it and change it for personal or other non-commercial purposes. You can't sell it or use it commercially without my written permission. Any copy has to keep the license and the "Required Notice" line with my name.
+
+Prime Writer uses open-source projects that keep their own licenses, including LanguageTool, OpenJDK, Ollama, Qwen, React and Tiptap. The full list is in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+## Building from source
+
+You'll need Python 3.13 with uv, Node.js, a JDK 17 or newer, and Inno Setup 6 (`winget install JRSoftware.InnoSetup`).
 
 ```powershell
-# Run without building
-.venv\Scripts\python -m writer.desktop        # tray app
-.venv\Scripts\python -m writer.server         # browser-only, http://127.0.0.1:8000
-
-# Build from source (needs Python 3.13 + uv, Node.js, a JDK 17+, Inno Setup 6)
-powershell -ExecutionPolicy Bypass -File scripts\setup_dev.ps1   # venv, npm, LanguageTool, WebView2 bootstrapper
+powershell -ExecutionPolicy Bypass -File scripts\setup_dev.ps1   # Python env, npm packages, LanguageTool, WebView2 bootstrapper
 powershell -ExecutionPolicy Bypass -File build_exe.ps1           # dist\PrimeWriter\PrimeWriter.exe
 powershell -ExecutionPolicy Bypass -File build_installer.ps1     # dist\installer\PrimeWriter-Setup-<version>.exe
-
-# Work on the UI with live reload (the app must be running for /api)
-cd frontend; npm install; npx vite        # http://localhost:5173
 ```
 
-The exe finds LanguageTool by searching the exe's folder and its parent folders for `tools\LanguageTool-*`. If you move `dist\PrimeWriter`, copy `tools\` next to it, or set `WRITER_HOME` to this project folder.
+To run it without building:
 
-Environment variables: `WRITER_CHECK_MODEL`, `WRITER_PARAPHRASE_MODEL`, `OLLAMA_HOST`.
+```powershell
+.venv\Scripts\python -m writer.desktop    # tray app
+.venv\Scripts\python -m writer.server     # editor only, at http://127.0.0.1:8000
+cd frontend; npx vite                     # UI with live reload (keep the app running for the API)
+```
 
-Clash note: in fake-IP mode, `ollama pull` fails with "resolves to non-public 198.18.x.x". Add `+.r2.cloudflarestorage.com` to Clash's `fake-ip-filter`.
+The version number lives in `writer/__init__.py`. You can change the AI models with the `WRITER_CHECK_MODEL` and `WRITER_PARAPHRASE_MODEL` environment variables, and point to another Ollama with `OLLAMA_HOST`.
 
-## Layout
+### Project layout
 
 ```
-shared/ollama.py        Ollama client
-writer/server.py        FastAPI API: check, paraphrase, config, apps
-writer/languagetool.py  LanguageTool start/stop and checks
-writer/prompts.py       Paraphrase modes and the grammar prompt
-writer/config.py        Settings (per-app on/off, hotkeys)
-writer/win32.py         Hotkeys, clipboard, active app, key input (ctypes)
-writer/overlay.py       Live underlines: UI Automation, background checks, hover card, button, synonyms, snippets
-writer/readability.py   Hemingway-style rules (passive, wordy, adverbs, long sentences)
-writer/static/textstats.js  Word count, reading time, Flesch score
-writer/layered.py       Click-through top-most drawing windows (ctypes + Pillow)
-writer/desktop.py       Tray, popup, single instance, start with Windows
-frontend/src/            React + Tiptap UI (editor, side panel, AI menu, settings)
-writer/static/app/      Built UI (generated by build_exe.ps1)
-writer/static/          Quick popup and hover card pages
-primewriter.py          Exe entry point
-build_exe.ps1           PyInstaller build
-tools/                  LanguageTool 6.6
+writer/server.py        API: checks, paraphrasing, settings
+writer/overlay.py       underlines and suggestion cards in other apps
+writer/desktop.py       tray icon, quick popup, start with Windows
+writer/languagetool.py  starts and talks to LanguageTool
+writer/readability.py   passive voice, wordy phrases, long sentences
+writer/setup.py         first-run Ollama and model download
+frontend/src/           the editor UI (React + Tiptap)
+installer/              Inno Setup script
+scripts/                build helpers, logo and license notice generators
 ```
