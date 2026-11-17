@@ -1,0 +1,20 @@
+# Build outputs
+dist/
+build/
+writer/static/app/
+*.spec
+
+# Dependencies and environments
+.venv/
+frontend/node_modules/
+__pycache__/
+*.pyc
+
+# Large third-party bundles (fetched/created by the build, see README)
+tools/
+installer/redist/
+
+# Local tooling and scratch
+.claude/
+*.log
+logo-preview.png

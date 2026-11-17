@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime Writer</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/extra.css">
+</head>
+<body class="popup">
+  <div class="pop-head">
+    <span class="muted">In</span> <span id="appname" class="appname">—</span>
+    <button id="off-here" class="link">Turn off in this app</button>
+    <span class="spacer"></span>
+    <button id="close" class="link" title="Close (Esc)">Close</button>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="check" role="tab">Check <span id="n-iss" class="badge">0</span></button>
+    <button class="tab" data-tab="para" role="tab">Paraphrase</button>
+  </div>
+
+  <div class="pop-body">
+    <textarea id="src" spellcheck="false" placeholder="Select text in any app and press the hotkey, or type here."></textarea>
+    <p id="note" class="note" hidden></p>
+
+    <div id="pane-check">
+      <div class="row-tight">
+        <button id="btn-check">Check again</button>
+        <button id="btn-fixall" disabled>Apply all</button>
+        <button id="btn-aifix">AI fix</button>
+        <span id="busy-check" class="busy" hidden>Checking…</span>
+      </div>
+      <div id="iss" class="sugg-list" style="margin-top:8px"></div>
+    </div>
+
+    <div id="pane-para" hidden>
+      <div id="modes" class="modes"></div>
+      <div class="slider-row">
+        <span class="small muted">Changes</span>
+        <input type="range" id="strength" min="1" max="5" step="1" value="3">
+        <span id="strength-label" class="small">Medium</span>
+      </div>
+      <div class="freeze">
+        <input id="freeze-in" placeholder="Freeze words: type and press Enter" spellcheck="false">
+        <div id="freeze-list" class="chips"></div>
+      </div>
+      <div id="para-out" class="para-out muted">Pick a mode.</div>
+      <p id="para-warn" class="small errors"></p>
+    </div>
+  </div>
+
+  <div class="pop-foot">
+    <button id="btn-replace" class="primary">Replace in app</button>
+    <button id="btn-copy">Copy</button>
+    <span id="pstats" class="hint"></span>
+  </div>
+<script src="/static/textstats.js"></script>
+<script src="/static/popup.js"></script>
+</body>
+</html>
