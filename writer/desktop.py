@@ -453,7 +453,14 @@ def already_running() -> bool:
     return ctypes.get_last_error() == 183  # ERROR_ALREADY_EXISTS
 
 
+APP_ID = "MaskawatAlSium.PrimeWriter"  # Windows app identity: taskbar grouping, icon and pinning
+
+
 def main() -> None:
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_ID)
+    except (AttributeError, OSError):
+        pass
     parser = argparse.ArgumentParser()
     parser.add_argument("--background", action="store_true", help="start in the tray without opening a window")
     args, _ = parser.parse_known_args()
