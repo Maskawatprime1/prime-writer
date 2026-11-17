@@ -1,4 +1,9 @@
-<p align="center"><img src="frontend/public/logo.svg" width="96" alt="Prime Writer logo"></p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="frontend/public/brand/logo-full-light.png">
+    <img src="frontend/public/brand/logo-full.png" width="340" alt="Prime Writer">
+  </picture>
+</p>
 
 # Prime Writer
 

@@ -37,9 +37,19 @@ export function useToast() {
   return [node, show] as const;
 }
 
-/** Prime Writer mark (same artwork as public/logo.svg and the tray icon). */
+/** Prime Writer round mark (same artwork as the tray and exe icon). */
 export function Logo({ size = 30 }: { size?: number }) {
-  return <img src="/logo.svg" width={size} height={size} alt="" className="logo-img" draggable={false} />;
+  return <img src="/brand/logo-mark.png" width={size} height={size} alt="" className="logo-img" draggable={false} />;
+}
+
+/** Full "pw. prime writer" logo; switches to the light version on dark backgrounds. */
+export function FullLogo({ height = 64 }: { height?: number }) {
+  return (
+    <span className="full-logo" style={{ height }}>
+      <img src="/brand/logo-full.png" alt="Prime Writer" className="on-light" style={{ height }} draggable={false} />
+      <img src="/brand/logo-full-light.png" alt="Prime Writer" className="on-dark" style={{ height }} draggable={false} />
+    </span>
+  );
 }
 
 export const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));

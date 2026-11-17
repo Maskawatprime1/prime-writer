@@ -1,4 +1,4 @@
-﻿# Builds dist\PrimeWriter\PrimeWriter.exe
+# Builds dist\PrimeWriter\PrimeWriter.exe
 # Run from the project folder:  powershell -ExecutionPolicy Bypass -File build_exe.ps1
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
@@ -28,6 +28,7 @@ New-Item -ItemType Directory -Force build | Out-Null
   --distpath dist --workpath build --specpath build `
   --paths . `
   --add-data "$PSScriptRoot\writer\static;writer\static" `
+  --add-data "$PSScriptRoot\writer\assets;writer\assets" `
   --collect-submodules uvicorn `
   --hidden-import pystray._win32 `
   --hidden-import writer.overlay `

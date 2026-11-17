@@ -43,6 +43,8 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 APP = STATIC / "app"  # React UI built from frontend/ (npm run build)
 if (APP / "assets").is_dir():
     app.mount("/assets", StaticFiles(directory=APP / "assets"), name="assets")
+if (APP / "brand").is_dir():
+    app.mount("/brand", StaticFiles(directory=APP / "brand"), name="brand")
 
 
 @app.middleware("http")
@@ -162,10 +164,9 @@ def setup_model(body: ModelIn):
     return setup.status()
 
 
-@app.get("/logo.svg")
-@app.get("/favicon.svg")
-def logo():
-    return FileResponse(APP / "logo.svg", media_type="image/svg+xml")
+@app.get("/favicon.ico")
+def favicon():
+    return FileResponse(APP / "brand" / "logo-mark.png", media_type="image/png")
 
 
 @app.get("/card")

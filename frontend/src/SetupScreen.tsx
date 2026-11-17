@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CheckCircle2, Cpu, Download, Loader2, Sparkles } from "lucide-react";
 import { api } from "./api";
-import { Logo } from "./ui";
+import { FullLogo } from "./ui";
 
 type Setup = {
   ollama_installed: boolean;
@@ -40,7 +40,7 @@ export default function SetupScreen({ onDone, force = false }: { onDone: () => v
   return (
     <div className="setup-wrap">
       <div className="setup">
-        <div className="setup-head"><Logo size={44} /><div><h1>Welcome to Prime Writer</h1><p>Two quick steps to set up the offline AI on this PC.</p></div></div>
+        <div className="setup-head"><FullLogo height={92} /><div><h1>Welcome to Prime Writer</h1><p>Two quick steps to set up the offline AI on this PC.</p></div></div>
 
         <div className={"step" + (step1 ? " done" : "")}>
           <div className="step-ico">{step1 ? <CheckCircle2 size={22} /> : <Cpu size={22} />}</div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AppWindow, ArrowLeft, BookA, Keyboard, Languages, RefreshCw, Sparkles, TextCursorInput, Trash2, X } from "lucide-react";
 import { MODES, addWord, api, getApps, getConfig, removeWord, setConfig, toggleApp, type AppRow, type Config } from "./api";
 import { navigate } from "./main";
-import { Logo, Switch, useToast } from "./ui";
+import { FullLogo, Logo, Switch, useToast } from "./ui";
 
 const LANGS: Record<string, string> = { "en-US": "American English", "en-GB": "British English", "en-CA": "Canadian English", "en-AU": "Australian English" };
 
@@ -152,7 +152,7 @@ export default function Settings() {
 
           <section className="section about" id="about">
             <div className="about-head">
-              <Logo size={48} />
+              <FullLogo height={64} />
               <div>
                 <h2 style={{ margin: 0 }}>Prime Writer {about?.version}</h2>
                 <div className="muted small">{about?.copyright}. Made by Maskawat Al Sium.</div>
